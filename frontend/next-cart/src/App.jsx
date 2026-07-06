@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {Navbar} from "./component/Navbar";
-import { Footer } from './component/Footer';
+import { Footer } from './component/HOME/Footer';
 import { About } from './pages/About';
 import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
@@ -23,6 +23,7 @@ import { AdminOrders } from './admin/AdminOrders';
 import { AdminProducts } from './admin/AdminProducts';
 import { AdminUsers } from './admin/AdminUsers'; 
 import { EditProducts } from './admin/EditProducts';
+
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/orders" element={<MyOrders />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path='/order-success' element={<OrderSuccess />} />
+          <Route path= '/about' element={<About />} />
 
 
 
@@ -61,6 +63,7 @@ function App() {
           
         </Routes>
       </div>
+      <Footer />
       
     </Router>
   );

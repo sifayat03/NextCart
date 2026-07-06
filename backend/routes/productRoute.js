@@ -8,9 +8,13 @@ const authValidation = require('../middlewares/validations/authValidation')
 const productValidation = require("../middlewares/validations/productValidation")
 
 // Route to create a new product
-router.post("/create", authMiddleware.verifyToken, authMiddleware.verifyAdmin,
+/*router.post("/create", authMiddleware.verifyToken, authMiddleware.verifyAdmin,
      productValidation.createProductValidation, authValidation.validate,
-     upload.single('image'), ProductController.createProduct);
+     upload.single('image'), ProductController.createProduct);*/
+
+     router.post("/create", authMiddleware.verifyToken, authMiddleware.verifyAdmin,
+    
+     upload.single('image'), ProductController.createProduct)
 
 //route to delete a product
  router.delete("/delete/:id", authMiddleware.verifyToken, authMiddleware.verifyAdmin, ProductController.deleteProduct);

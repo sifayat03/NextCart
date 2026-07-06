@@ -22,4 +22,10 @@ router.delete(
     cartController.removeFromCart
 );
 
+router.put(
+  "/:productId",
+  authMiddleware.verifyToken,
+  cartController.updateCartItemQuantity
+);
+
 module.exports = router;

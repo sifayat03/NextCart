@@ -2,6 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { ProductCard } from "../component/ProductCard";
+import  ShopHero  from "../component/SHOP/ShopHero";
+import ShopLayout from "../component/SHOP/ShopLayout";
+import FilterSidebar from "../component/SHOP/FilterSidebar";
+import ShopToolbar from "../component/SHOP/ShopToolbar";
+import { ProductGrid } from "../component/SHOP/ProductGrid";
+import EmptyProducts from "../component/SHOP/EmptyProducts";
+import ProductSkeletonGrid from "../component/SHOP/ProductSkeletonGrid";
+import { ShopFeatures } from "../component/SHOP/ShopFeatures";
+
+
 
 export const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -22,15 +32,24 @@ export const Shop = () => {
   const [maxPrice, setMaxPrice] = useState("");
   const [sort, setSort] = useState("");
 
+ const [priceFilter, setPriceFilter] = useState({
+  min: "",
+  max: "",
+});
+
   // Applied filters
 
-  const [appliedFilters, setAppliedFilters] =
+ /* const [appliedFilters, setAppliedFilters] =
     useState({
       category: "",
       minPrice: "",
       maxPrice: "",
       sort: "",
-    });
+    }); */
+
+    const [appliedFilters, setAppliedFilters] = useState()
+
+    
 
     const fetchWishlist = async () => {
   try {
@@ -63,15 +82,12 @@ export const Shop = () => {
         "http://localhost:5000/api/products/get-products",
         {
           params: {
-            search,
-            category:
-              appliedFilters.category,
-            minPrice:
-              appliedFilters.minPrice,
-            maxPrice:
-              appliedFilters.maxPrice,
-            sort: appliedFilters.sort,
-          },
+  search,
+  category,
+   minPrice: priceFilter.min,
+  maxPrice: priceFilter.max,
+  sort,
+},
         }
       );
 
@@ -83,25 +99,41 @@ export const Shop = () => {
     }
   };
 
-  useEffect(() => {
+ /* useEffect(() => {
   fetchProducts();
-}, [search, appliedFilters]);
+}, [search, appliedFilters]);*/
+
+useEffect(() => {
+  fetchProducts();
+}, [
+  search,
+  category,
+ priceFilter,
+  sort,
+]);
 
 useEffect(() => {
   fetchWishlist();
 }, []);
 
+const applyPriceFilter = () => {
+  setPriceFilter({
+    min: minPrice,
+    max: maxPrice,
+  });
+};
 
-  const applyFilters = () => {
+
+ /* const applyFilters = () => {
     setAppliedFilters({
       category,
       minPrice,
       maxPrice,
       sort,
     });
-  };
+  };*/
 
-  const clearFilters = () => {
+ /* const clearFilters = () => {
     setCategory("");
     setMinPrice("");
     setMaxPrice("");
@@ -113,191 +145,78 @@ useEffect(() => {
       maxPrice: "",
       sort: "",
     });
-  };
+  };*/
+
+  const clearFilters = () => {
+  setCategory("");
+  setMinPrice("");
+  setMaxPrice("");
+  setSort("");
+};
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center text-2xl font-semibold">
-        Loading Products...
-      </div>
-    );
-  }
+  return (
+    <div className="mx-auto max-w-7xl px-6 py-12">
+      <ProductSkeletonGrid />
+    </div>
+  );
+}
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <>
+   
 
-      {/* Header */}
 
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-6">
+<ShopHero totalProducts={products.length}  search={search} />
 
-          <h1 className="text-3xl font-bold">
-            Shop
-          </h1>
+ <ShopLayout
+    sidebar={
+    <FilterSidebar
+      category={category}
+      setCategory={setCategory}
 
-          {search && (
-            <p className="text-gray-500 mt-2">
-              Search Results For:
-              <span className="font-semibold ml-2">
-                {search}
-              </span>
-            </p>
-          )}
+      minPrice={minPrice}
+      setMinPrice={setMinPrice}
 
-        </div>
-      </div>
+      maxPrice={maxPrice}
+      setMaxPrice={setMaxPrice}
 
-      {/* Filters */}
+      sort={sort}
+      setSort={setSort}
 
-      <div className="max-w-7xl mx-auto px-4 py-6">
-
-        <div className="bg-white rounded-xl shadow p-5 mb-8">
-
-          <h2 className="text-xl font-semibold mb-4">
-            Filters
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-
-            {/* Category */}
-
-            <select
-              value={category}
-              onChange={(e) =>
-                setCategory(
-                  e.target.value
-                )
-              }
-              className="border rounded-lg p-3"
-            >
-              <option value="">
-                All Categories
-              </option>
-
-              <option value="Electronics">
-                Electronics
-              </option>
-
-              <option value="Fashion">
-                Fashion
-              </option>
-
-              <option value="Books">
-                Books
-              </option>
-
-              <option value="Shoes">
-                Shoes
-              </option>
-            </select>
-
-            {/* Min Price */}
-
-            <input
-              type="number"
-              placeholder="Min Price"
-              value={minPrice}
-              onChange={(e) =>
-                setMinPrice(
-                  e.target.value
-                )
-              }
-              className="border rounded-lg p-3"
-            />
-
-            {/* Max Price */}
-
-            <input
-              type="number"
-              placeholder="Max Price"
-              value={maxPrice}
-              onChange={(e) =>
-                setMaxPrice(
-                  e.target.value
-                )
-              }
-              className="border rounded-lg p-3"
-            />
-
-            {/* Sort */}
-
-            <select
-              value={sort}
-              onChange={(e) =>
-                setSort(
-                  e.target.value
-                )
-              }
-              className="border rounded-lg p-3"
-            >
-              <option value="">
-                Sort By
-              </option>
-
-              <option value="low-high">
-                Price Low → High
-              </option>
-
-              <option value="high-low">
-                Price High → Low
-              </option>
-            </select>
-
-          </div>
-
-          <div className="flex gap-4 mt-5">
-
-            <button
-              onClick={applyFilters}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg"
-            >
-              Apply Filters
-            </button>
-
-            <button
-              onClick={clearFilters}
-              className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg"
-            >
-              Clear Filters
-            </button>
-
-          </div>
-
-        </div>
-
-        {/* Products */}
-
-        {products.length === 0 ? (
-
-          <div className="text-center py-20">
-
-            <h2 className="text-2xl font-bold">
-              No Products Found
-            </h2>
-
-            <p className="text-gray-500 mt-2">
-              Try changing filters
-            </p>
-
-          </div>
-
-        ) : (
-
-         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-  {products.map((product) => (
-    <ProductCard
-      key={product._id}
-      product={product}
-      isWishlisted={wishlist.includes(product._id)}
+    applyPriceFilter={applyPriceFilter}
+      clearFilters={clearFilters}
     />
-  ))}
-</div>
+  }
+    toolbar={
+  <ShopToolbar
+    totalProducts={products.length}
+    sort={sort}
+    setSort={setSort}
+  />
+}
+>
 
-        )}
+<ProductGrid
+  products={products}
+  wishlist={wishlist}
+/>
 
-      </div>
+{ products.length==0 &&
 
-    </div>
+<EmptyProducts
+  clearFilters={clearFilters}
+/> }
+
+<ShopFeatures />
+
+
+</ShopLayout>
+
+
+
+
+    </>
   );
 };
 

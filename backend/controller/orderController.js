@@ -16,9 +16,13 @@ const Cart = require('../models/cartModel.js')
       });
     }
 
-    if (!address) {
+    if (!address.fullName ||
+  !address.street ||
+  !address.city ||
+  !address.postalCode ||
+  !address.country) {
       return res.status(400).json({
-        message: "Address is required",
+        message: "All address fields are required",
       });
     }
 

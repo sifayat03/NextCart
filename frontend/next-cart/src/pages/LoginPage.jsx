@@ -2,6 +2,7 @@ import { useState , useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -28,7 +29,7 @@ export const Login = () => {
         }
       );
 
-      alert(res.data.message || "Login Successful");
+      toast.success( res.data.message || "Login Successful");
 
       login(res.data);
 
@@ -39,7 +40,7 @@ export const Login = () => {
 
   const serverMessage =  error.response?.data?.message;
 
-  alert( validationError || serverMessage || "Invalid email or password" );
+  toast.error( validationError || serverMessage || "Invalid email or password" );
   
     } finally {
       setLoading(false);

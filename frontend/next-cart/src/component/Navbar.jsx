@@ -1,31 +1,32 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { useLocation } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, ShoppingBag } from "lucide-react";
 
+import { AuthContext } from "../context/AuthContext";
+
+import { NavLink } from "./navbar/NavLink";
+import { SearchBar } from "./navbar/SearchBar";
+import { UserMenu } from "./navbar/UserMenu";
+import { MobileMenu } from "./navbar/MobileMenu";
 
 export const Navbar = () => {
-
   const { user, logout } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
-
 
   const hideNavbarRoutes = [
     "/login",
     "/register",
-    "/verify-otp"
+    "/verify-otp",
   ];
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+  if (hideNavbarRoutes.includes(location.pathname)) {
+    return null;
+  }
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -35,183 +36,73 @@ export const Navbar = () => {
     navigate(`/shop?search=${search}`);
   };
 
-  if (hideNavbarRoutes.includes(location.pathname)) {
-    return null;
-  }
-
-
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <>
+      <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-xl">
 
-      <div className="max-w-7xl mx-auto px-4">
+        {/* Top Header */}
 
-        <div className="flex justify-between items-center h-16">
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5">
 
           {/* Logo */}
+
           <Link
             to="/"
-            className="flex items-center gap-2 text-xl font-bold text-orange-500"
+            className="flex items-center gap-3"
           >
-            <img
-              src="https://cdn.shopify.com/s/files/1/0451/5325/files/checkout_logo_19.png?height=628&pad_color=fff&v=1613154548&width=1200"
-              alt="NextCart"
-              className="h-10 w-10 rounded-lg"
-            />
-            NextCart
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-black text-lg font-bold text-white">
+
+              N
+
+            </div>
+
+            <div>
+
+              <h1 className="text-xl font-bold tracking-tight text-gray-900">
+
+                NextCart
+
+              </h1>
+
+              <p className="text-xs text-gray-500">
+
+                Premium Shopping
+
+              </p>
+
+            </div>
+
           </Link>
 
-          {/* Search Bar Desktop */}
-          <form
-            onSubmit={handleSearch}
-            className="hidden md:flex items-center flex-1 max-w-xl mx-8"
-          >
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={search}
-              onChange={(e) =>
-                setSearch(e.target.value)
-              }
-              className="w-full border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:border-orange-500"
-            />
+          {/* Desktop Nav */}
 
-            <button
-              type="submit"
-              className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-r-lg"
-            >
-              Search
-            </button>
-          </form>
+          <div className="hidden items-center gap-10 lg:flex">
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-6">
+            <NavLink to="/">Home</NavLink>
 
-            <Link  to="/shop" className="hover:text-orange-500" >    Shop   </Link>
+            <NavLink to="/shop">Shop</NavLink>
 
-            <Link   to="/cart"  className="hover:text-orange-500"   >  Cart    </Link>
+            <NavLink to="/cart">Cart</NavLink>
 
-            {user ? (
-              <>
-                <Link to="/profile"    className="hover:text-orange-500" >   Hi, {user.name}  </Link>
-
-                {user.role === "admin" && (
-                  <Link   to="/admin" className="hover:text-orange-500"   >  Admin   </Link>
-                )}
-
-                <button
-                  onClick={handleLogout}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <Link
-                to="/login"
-                className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600"
-              >
-                Login
-              </Link>
-            )}
           </div>
 
-          {/* Mobile Button */}
-          <button
-            onClick={() =>
-              setMenuOpen(!menuOpen)
-            }
-            className="md:hidden text-2xl"
-          >
-            ☰
-          </button>
+          {/* Right */}
 
-        </div>
+          <div className="flex items-center gap-3">
 
-        {/* Mobile Menu */}
+            {/* Desktop */}
 
-        {menuOpen && (
-          <div className="md:hidden py-4 border-t">
-
-            <form
-              onSubmit={handleSearch}
-              className="flex mb-4"
-            >
-              <input
-                type="text"
-                placeholder="Search..."
-                value={search}
-                onChange={(e) =>
-                  setSearch(e.target.value)
-                }
-                className="flex-1 border rounded-l-lg px-3 py-2"
-              />
-
-              <button
-                type="submit"
-                className="bg-orange-500 text-white px-4 rounded-r-lg"
-              >
-                Go
-              </button>
-            </form>
-
-            <div className="flex flex-col gap-3">
-
-              <Link
-                to="/shop"
-                onClick={() =>
-                  setMenuOpen(false)
-                }
-              >
-                Shop
-              </Link>
-
-              <Link
-                to="/cart"
-                onClick={() =>
-                  setMenuOpen(false)
-                }
-              >
-                Cart
-              </Link>
+            <div className="hidden lg:block">
 
               {user ? (
-                <>
-                  <Link
-                    to="/profile"
-                    onClick={() =>
-                      setMenuOpen(false)
-                    }
-                  >
-                    Hi, {user.name}
-                  </Link>
-
-                  
-
-                  {user.role === "admin" && (
-                    <Link
-                      to="/admin/orders"
-                      onClick={() =>
-                        setMenuOpen(false)
-                      }
-                    >
-                      Admin
-                    </Link>
-                  )}
-
-                  <button
-                    onClick={handleLogout}
-                    className="bg-red-500 text-white py-2 rounded-lg"
-                  >
-                    Logout
-                  </button>
-                </>
+                <UserMenu
+                  user={user}
+                  logout={logout}
+                />
               ) : (
                 <Link
                   to="/login"
-                  onClick={() =>
-                    setMenuOpen(false)
-                  }
-                  className="bg-orange-500 text-white py-2 text-center rounded-lg"
+                  className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-gray-800"
                 >
                   Login
                 </Link>
@@ -219,11 +110,76 @@ export const Navbar = () => {
 
             </div>
 
+            {/* Mobile Cart */}
+
+            <Link
+              to="/cart"
+              className="relative rounded-full p-2 transition hover:bg-gray-100 lg:hidden"
+            >
+              <ShoppingBag size={24} />
+
+              {/* Future Badge */}
+
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] text-white">
+
+                5
+
+              </span>
+
+            </Link>
+
+            {/* Mobile Menu */}
+
+            <button
+              onClick={() => setMenuOpen(true)}
+              className="rounded-full p-2 transition hover:bg-gray-100 lg:hidden"
+            >
+              <Menu size={25} />
+            </button>
+
           </div>
-        )}
 
-      </div>
+        </div>
 
-    </nav>
+                {/* Desktop Search */}
+
+        <div className="hidden border-t border-gray-100 lg:block">
+
+          <div className="mx-auto max-w-7xl px-5 py-4">
+
+            <SearchBar
+              className="mx-auto max-w-2xl"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onSubmit={handleSearch}
+            />
+
+          </div>
+
+        </div>
+
+        {/* Mobile Search */}
+
+        <div className="border-t border-gray-100 px-4 py-3 lg:hidden">
+
+          <SearchBar
+            className="w-full"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onSubmit={handleSearch}
+          />
+
+        </div>
+
+      </nav>
+
+      <MobileMenu
+        open={menuOpen}
+        setOpen={setMenuOpen}
+        user={user}
+        logout={logout}
+      />
+
+    </>
   );
 };
