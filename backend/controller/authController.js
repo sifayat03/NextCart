@@ -271,9 +271,7 @@ const toggleWishlist = async (req, res) => {
     success: true,
     isWishlisted: false,
     message: "Removed from wishlist",
-  });
-
-      
+  });  
     }
 
     user.wishlist.push(productId);
