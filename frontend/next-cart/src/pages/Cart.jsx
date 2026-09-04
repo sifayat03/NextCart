@@ -21,7 +21,7 @@ export const Cart = () => {
   const fetchCart = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/cart",
+        "https://nextcart-backend-kxc0.onrender.com/api/cart",
         {
           withCredentials: true,
         }
@@ -39,7 +39,7 @@ export const Cart = () => {
   const removeItem = async (productId) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/cart/${productId}`,
+        `https://nextcart-backend-kxc0.onrender.com/api/cart/${productId}`,
         {
           withCredentials: true,
         }
@@ -67,7 +67,7 @@ export const Cart = () => {
       setUpdatingId(productId);
 
       const res = await axios.put(
-        `http://localhost:5000/api/cart/${productId}`,
+        `https://nextcart-backend-kxc0.onrender.com/api/cart/${productId}`,
         { quantity: newQty },
         {
           withCredentials: true,

@@ -61,7 +61,7 @@ export const Checkout = () => {
   const fetchCart = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/cart",
+        "https://nextcart-backend-kxc0.onrender.com/api/cart",
         {
           withCredentials: true,
         }
@@ -117,7 +117,7 @@ export const Checkout = () => {
         }));
 
     const res = await axios.post(
-      "http://localhost:5000/api/orders/create",
+      "https://nextcart-backend-kxc0.onrender.com/api/orders/create",
       {
         items: orderItems,
         address,
@@ -170,7 +170,7 @@ export const Checkout = () => {
       setLoading(true);
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/payment/create-order",
+        "https://nextcart-backend-kxc0.onrender.com/api/payment/create-order",
         {
           amount: totalAmount,
         },
@@ -200,7 +200,7 @@ export const Checkout = () => {
           try {
             const verifyRes =
               await axios.post(
-                "http://localhost:5000/api/payment/verify",
+                "https://nextcart-backend-kxc0.onrender.com/api/payment/verify",
                 response,
                 {
                   withCredentials: true,

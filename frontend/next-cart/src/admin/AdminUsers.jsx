@@ -11,7 +11,7 @@ export const AdminUsers = () => {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/auth/users",
+        "https://nextcart-backend-kxc0.onrender.com/api/auth/users",
         {
           withCredentials: true,
         }

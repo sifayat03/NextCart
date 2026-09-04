@@ -17,7 +17,7 @@ export const RegisterPage = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://nextcart-backend-kxc0.onrender.com/api/auth/register",
         {
           name,
           email,

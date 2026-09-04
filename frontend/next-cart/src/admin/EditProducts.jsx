@@ -18,7 +18,7 @@ export const EditProducts = () => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/products/get-product/${id}`,
+          `https://nextcart-backend-kxc0.onrender.com/api/products/get-product/${id}`,
           { withCredentials: true }
         );
 
@@ -55,7 +55,7 @@ export const EditProducts = () => {
       }
 
       await axios.put(
-        `http://localhost:5000/api/products/update/${id}`,
+        `https://nextcart-backend-kxc0.onrender.com/api/products/update/${id}`,
         data,
         {
           withCredentials: true,

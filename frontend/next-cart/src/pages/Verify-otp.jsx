@@ -19,7 +19,7 @@ export const VerifyOtp = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/verify-otp",
+        "https://nextcart-backend-kxc0.onrender.com/api/auth/verify-otp",
         {
           email,
           otp,

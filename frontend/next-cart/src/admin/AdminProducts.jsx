@@ -9,7 +9,7 @@ export const AdminProducts = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/products/get-products",
+        "https://nextcart-backend-kxc0.onrender.com/api/products/get-products",
         {
           withCredentials: true,
         }
@@ -33,7 +33,7 @@ export const AdminProducts = () => {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/products/delete/${id}`,
+        `https://nextcart-backend-kxc0.onrender.com/api/products/delete/${id}`,
         {
           withCredentials: true,
         }

@@ -26,7 +26,7 @@ export const ProductCard = ({ product }) => {
       setAddingToCart(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/cart/add",
+        "https://nextcart-backend-kxc0.onrender.com/api/cart/add",
         {
           productId: product._id,
           quantity: 1,

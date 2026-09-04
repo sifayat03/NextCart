@@ -35,7 +35,7 @@ export const AddProducts = () => {
 
    try {
     const response = await axios.post(
-      "http://localhost:5000/api/products/create",
+      "https://nextcart-backend-kxc0.onrender.com/api/products/create",
       data,
       {
         withCredentials: true,

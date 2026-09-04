@@ -55,7 +55,7 @@ export const Shop = () => {
   try {
 
     const res = await axios.get(
-      "http://localhost:5000/api/auth/wishlist",
+      "https://nextcart-backend-kxc0.onrender.com/api/auth/wishlist",
       {
         withCredentials: true,
       }
@@ -79,7 +79,7 @@ export const Shop = () => {
       setLoading(true);
 
       const res = await axios.get(
-        "http://localhost:5000/api/products/get-products",
+        "https://nextcart-backend-kxc0.onrender.com/api/products/get-products",
         {
           params: {
   search,

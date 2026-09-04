@@ -12,7 +12,7 @@ export const Profile = () => {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/auth/profile",
+        "https://nextcart-backend-kxc0.onrender.com/api/auth/profile",
         {
           withCredentials: true,
         }

@@ -8,7 +8,7 @@ export const AdminOrders = () => {
   const fetchOrders = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/orders/all",
+        "https://nextcart-backend-kxc0.onrender.com/api/orders/all",
         {
           withCredentials: true,
         }
@@ -26,7 +26,7 @@ export const AdminOrders = () => {
   const updateStatus = async (orderId, status) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/orders/update-status/${orderId}`,
+        `https://nextcart-backend-kxc0.onrender.com/api/orders/update-status/${orderId}`,
         { status },
         {
           withCredentials: true,

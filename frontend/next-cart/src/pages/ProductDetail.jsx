@@ -42,7 +42,7 @@ const isWishlisted =
   const fetchProduct = async () => {
     try {
      const res = await axios.get(
-  `http://localhost:5000/api/products/get-product/${id}`,
+      `https://nextcart-backend-kxc0.onrender.com/api/products/get-product/${id}`,
   {
     withCredentials: true,
   }
@@ -70,7 +70,7 @@ setInitialWishlist(res.data.isWishlisted || false);
   try {
 
     const res = await axios.post(
-      `http://localhost:5000/api/products/${id}/review`,
+      `https://nextcart-backend-kxc0.onrender.com/api/products/${id}/review`,
       {
         rating,
         comment,
@@ -102,7 +102,7 @@ setInitialWishlist(res.data.isWishlisted || false);
       setAddingToCart(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/cart/add",
+        "https://nextcart-backend-kxc0.onrender.com/api/cart/add",
         {
           productId: product._id,
           quantity: qty,

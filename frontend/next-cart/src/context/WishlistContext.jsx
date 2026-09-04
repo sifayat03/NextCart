@@ -25,7 +25,7 @@ export const WishlistProvider = ({ children }) => {
   const fetchWishlist = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/auth/wishlist",
+        "https://nextcart-backend-kxc0.onrender.com/api/auth/wishlist",
         {
           withCredentials: true,
         }
@@ -82,7 +82,7 @@ export const WishlistProvider = ({ children }) => {
 
     try {
       await axios.post(
-        `http://localhost:5000/api/auth/wishlist/${product._id}`,
+        `https://nextcart-backend-kxc0.onrender.com/api/auth/wishlist/${product._id}`,
         {},
         {
           withCredentials: true,
