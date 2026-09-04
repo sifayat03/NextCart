@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend URL
+    origin: "https://nextcart-psmr.onrender.com/", // frontend URL
     credentials: true,
   })
 );
