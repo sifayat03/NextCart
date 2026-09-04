@@ -4,10 +4,10 @@ import { Menu, ShoppingBag } from "lucide-react";
 
 import { AuthContext } from "../context/AuthContext";
 
-import { NavLink } from "./navbar/NavLink";
-import { SearchBar } from "./navbar/SearchBar";
-import { UserMenu } from "./navbar/UserMenu";
-import { MobileMenu } from "./navbar/MobileMenu";
+import { NavLink } from "./Navbar/Navlink"
+import { SearchBar } from "./Navbar/SearchBar"
+import { UserMenu } from "./Navbar/UserMenu";
+import { MobileMenu } from "./Navbar/MobileMenu";
 
 export const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
