@@ -160,11 +160,7 @@ const deleteProduct = async (req, res) => {
 const getProductById = async (req, res) => {
     try {
        const { id } = req.params;
-
-       console.log("Product ID:", req.params.id);
-    console.log("User:", req.user);
-
-
+       
     const product = await Product.findById(id);
 
     if (!product) {
