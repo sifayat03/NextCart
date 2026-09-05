@@ -15,9 +15,16 @@ app.use(cookieParser());
 
 app.use(express.json());  
 
+
+
+const allowedOrigins = [
+  "https://nextcart-psmr.onrender.com", // deployed frontend
+  "http://localhost:5173",              // local dev frontend
+];
+
 app.use(
   cors({
-    origin: "https://nextcart-psmr.onrender.com/", // frontend URL
+    origin: allowedOrigins,
     credentials: true,
   })
 );

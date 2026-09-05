@@ -131,8 +131,8 @@ const token = generateToken(user._id);
 
 res.cookie("token", token, {
   httpOnly: true,
-  secure: false,
-  sameSite: "lax",
+  secure: true,
+  sameSite: "none",
 });
 
  await user.save();
@@ -167,8 +167,8 @@ const loginUser = async (req, res) => {
         
           res.cookie("token", token, {
   httpOnly: true,
-  secure: false,
-  sameSite: "lax",
+  secure: true,
+  sameSite: "none",
 });
 
       res.json({
