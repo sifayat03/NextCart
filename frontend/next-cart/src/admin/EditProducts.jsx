@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { API } from "../api";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const EditProducts = () => {
   const { id } = useParams();
@@ -58,7 +59,7 @@ export const EditProducts = () => {
         data
       );
 
-      alert("Product updated successfully");
+      toast.success("Product updated successfully");
       navigate("/admin/products");
     } catch (error) {
       const validationError =
@@ -67,7 +68,7 @@ export const EditProducts = () => {
   const serverMessage =
     error.response?.data?.message;
 
-  alert(
+  toast.error(
     validationError ||
     serverMessage ||
     "Failed to update product"

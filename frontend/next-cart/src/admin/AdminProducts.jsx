@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { API } from "../api";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,7 @@ export const AdminProducts = () => {
       setProducts(response.data.products);
     } catch (error) {
       console.error(error);
-      alert("Failed to fetch products");
+      toast.error("Failed to fetch products");
     } finally {
       setLoading(false);
     }
@@ -37,10 +38,10 @@ export const AdminProducts = () => {
         prev.filter((product) => product._id !== id)
       );
 
-      alert("Product deleted successfully");
+      toast.success("Product deleted successfully");
     } catch (error) {
       console.error(error);
-      alert(
+      toast.error(
         error.response?.data?.message ||
           "Failed to delete product"
       );

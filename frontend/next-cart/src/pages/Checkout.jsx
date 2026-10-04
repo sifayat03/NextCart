@@ -11,6 +11,7 @@ import {
   ArrowLeft,
   Lock,
 } from "lucide-react";
+import { toast } from "react-toastify";
 
 export const Checkout = () => {
   const { user } = useContext(AuthContext);
@@ -36,7 +37,7 @@ export const Checkout = () => {
     !address.postalCode.trim() ||
     !address.country.trim()
   ) {
-    alert("Please fill in all shipping address fields");
+    toast.error("Please fill in all address fields");
     return false;
   }
 
@@ -147,15 +148,28 @@ export const Checkout = () => {
 
       await createOrder();
 
-      alert("Order placed");
+      toast.success(
+        "Order placed successfully"
+      );
+      //empty the address and cart after order is placed
+      setAddress({
+        fullName: "",
+        street: "",
+        city: "",
+        postalCode: "",
+        country: "",
+      });
+  
       navigate("/order-success");
     } catch (error) {
       console.log(error);
 
-      alert(
-        error.response?.data?.message ||
-          "Failed to place order"
-      );
+       const validationError =    error.response?.data?.errors?.[0]?.msg;
+      
+        const serverMessage =  error.response?.data?.message;
+            toast.error(validationError || serverMessage || "Failed to place order");
+
+      
     } finally {
       setLoading(false);
     }
@@ -206,11 +220,15 @@ export const Checkout = () => {
 
             console.log(verifyRes.data);
 
-            alert("Payment Verified 🎉");
+            toast.success(
+              "Payment Verified 🎉"
+            );
+
+        
 
             await createOrder(response);
 
-            alert(
+            toast.success(
               "Payment Successful & Order Created 🎉"
             );
 

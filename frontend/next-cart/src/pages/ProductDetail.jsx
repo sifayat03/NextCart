@@ -12,6 +12,7 @@ import { ReviewForm } from "../component/Products/ReviewForm";
 import { ReviewList } from "../component/Products/ReviewList";
 import { Heart } from "lucide-react";
 import { useWishlist } from "../context/WishlistContext";
+import { toast } from "react-toastify";
 
 
 export const ProductDetail = () => {
@@ -74,7 +75,7 @@ setInitialWishlist(res.data.isWishlisted || false);
       }
     );
 
-    alert(res.data.message);
+    toast.success(res.data.message);
 
     setRating(5);
     setComment("");
@@ -83,7 +84,7 @@ setInitialWishlist(res.data.isWishlisted || false);
 
   } catch (error) {
 
-    alert(
+    toast.error(
       error.response?.data?.message ||
       "Failed to submit review"
     );
@@ -103,12 +104,12 @@ setInitialWishlist(res.data.isWishlisted || false);
         }
       );
 
-      alert(res.data.message);
+      toast.success(res.data.message);
 
     } catch (error) {
       console.error(error);
 
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Failed to add product"
       );

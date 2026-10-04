@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../api';
+import { toast } from "react-toastify";
 
 export const AddProducts = () => {
 
@@ -21,7 +22,7 @@ export const AddProducts = () => {
 
    const handleSubmit = async (e) => {
      e.preventDefault();
-    if (!image) return alert('Please select an image');
+    if (!image) return toast.error('Please select an image');
     setLoading(true);
 
     const data = new FormData();
@@ -39,7 +40,7 @@ export const AddProducts = () => {
       data
     );
 
-    alert("Product added successfully!");
+    toast.success("Product added successfully!");
 
     console.log(response.data);
 
@@ -52,7 +53,7 @@ export const AddProducts = () => {
 
   const serverMessage = error.response?.data?.message;
 
-  alert(
+  toast.error(
     validationError ||
     serverMessage ||
     "Failed to add product"

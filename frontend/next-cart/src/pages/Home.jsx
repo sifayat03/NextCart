@@ -33,7 +33,7 @@ export const Home = () => {
       <Hero />
        <HeroStats />
        <FeaturedCategories />
-       <FeaturedProducts products={dummyProducts} />
+     
        <CollectionBanner />
        <WhyChooseUs />
        <CTASection />

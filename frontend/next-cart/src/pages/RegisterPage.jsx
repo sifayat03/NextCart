@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { API } from "../api";
 import { AuthContext } from "../context/AuthContext";
 import "../style/auth.css"
+import { toast } from "react-toastify";
 
 export const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -25,7 +26,7 @@ export const RegisterPage = () => {
         }
       );
 
-      alert(
+      toast.success(
         "Registration Successful! Please check your email for the Welcome OTP."
       );
 
@@ -43,7 +44,7 @@ export const RegisterPage = () => {
 
  const serverMessage = error.response?.data?.message;
 
-  alert( validationError ||  serverMessage || "Registration Failed" );
+  toast.error( validationError ||  serverMessage || "Registration Failed" );
     
     }
   };

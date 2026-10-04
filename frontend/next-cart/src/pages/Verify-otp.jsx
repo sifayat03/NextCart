@@ -2,6 +2,7 @@ import { useState } from "react";
 import {API} from "../api";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 
@@ -26,10 +27,10 @@ export const VerifyOtp = () => {
         }
       );
 
-      alert(res.data.message || "OTP Verified Successfully!");
+      toast.success(res.data.message || "OTP Verified Successfully!");
       navigate("/login");
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
           "OTP Verification Failed"
       );

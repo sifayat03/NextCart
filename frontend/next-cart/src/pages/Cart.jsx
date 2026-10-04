@@ -8,6 +8,7 @@ import {
   Minus,
   Plus,
 } from "lucide-react";
+import { toast } from "react-toastify";
 
 export const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -26,8 +27,10 @@ export const Cart = () => {
 
       setCart(res.data.items || []);
     } catch (error) {
-      console.error(error);
-      alert("Failed to fetch cart");
+      const validationError =    error.response?.data?.errors?.[0]?.msg;
+
+  const serverMessage =  error.response?.data?.message;
+      toast.error(validationError || serverMessage || "Failed to fetch cart");
     } finally {
       setLoading(false);
     }
@@ -46,8 +49,10 @@ export const Cart = () => {
         )
       );
     } catch (error) {
-      console.error(error);
-      alert("Failed to remove item");
+      const validationError =    error.response?.data?.errors?.[0]?.msg;
+
+  const serverMessage =  error.response?.data?.message;
+      toast.error(validationError || serverMessage || "Failed to remove item");
     }
   };
 
@@ -68,8 +73,11 @@ export const Cart = () => {
 
       setCart(res.data.items || []);
     } catch (error) {
-      console.error(error);
-      alert("Failed to update quantity");
+       const validationError =    error.response?.data?.errors?.[0]?.msg;
+
+  const serverMessage =  error.response?.data?.message;
+      toast.error(validationError || serverMessage || "Failed to update quantity");
+      
     } finally {
       setUpdatingId(null);
     }

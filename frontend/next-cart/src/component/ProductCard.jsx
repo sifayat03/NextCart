@@ -8,6 +8,7 @@ import {
   Star,
 } from "lucide-react";
 import { useWishlist } from "../context/WishlistContext";
+import { toast } from "react-toastify";
 
 export const ProductCard = ({ product }) => {
   const {
@@ -33,9 +34,9 @@ export const ProductCard = ({ product }) => {
         }
       );
 
-      alert(res.data.message);
+      toast.success(res.data.message);
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
           "Failed to add product"
       );

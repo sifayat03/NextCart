@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { API } from "../api";
+import { toast } from "react-toastify";
 
 export const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -14,7 +15,7 @@ export const AdminOrders = () => {
       setOrders(res.data.orders);
     } catch (error) {
       console.error(error);
-      alert("Failed to fetch orders");
+      toast.error("Failed to fetch orders");
     } finally {
       setLoading(false);
     }
@@ -36,7 +37,7 @@ export const AdminOrders = () => {
       );
     } catch (error) {
       console.error(error);
-      alert("Failed to update status");
+      toast.error("Failed to update status");
     }
   };
 
