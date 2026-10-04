@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import {API} from "../api";
 import {
   Heart,
   ShoppingBag,
@@ -25,14 +25,11 @@ export const ProductCard = ({ product }) => {
     try {
       setAddingToCart(true);
 
-      const res = await axios.post(
-        "https://nextcart-backend-kxc0.onrender.com/api/cart/add",
+      const res = await API.post(
+        "/cart/add",
         {
           productId: product._id,
           quantity: 1,
-        },
-        {
-          withCredentials: true,
         }
       );
 

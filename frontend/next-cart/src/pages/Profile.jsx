@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { API } from "../api";
 import { Link } from 'react-router-dom';
 
 export const Profile = () => {
@@ -11,11 +11,8 @@ export const Profile = () => {
   const fetchProfile = async () => {
     try {
 
-      const res = await axios.get(
-        "https://nextcart-backend-kxc0.onrender.com/api/auth/profile",
-        {
-          withCredentials: true,
-        }
+      const res = await API.get(
+        "/auth/profile"
       );
 
       setUser(res.data.user);

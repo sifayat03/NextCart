@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import {API} from "../api";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -18,14 +18,11 @@ export const VerifyOtp = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "https://nextcart-backend-kxc0.onrender.com/api/auth/verify-otp",
+      const res = await API.post(
+        "/auth/verify-otp",
         {
           email,
           otp,
-        },
-        {
-          withCredentials: true,
         }
       );
 

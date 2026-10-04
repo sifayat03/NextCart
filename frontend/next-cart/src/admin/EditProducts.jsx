@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { API } from "../api";
 import { useParams, useNavigate } from "react-router-dom";
 
 export const EditProducts = () => {
@@ -17,9 +17,8 @@ export const EditProducts = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(
-          `https://nextcart-backend-kxc0.onrender.com/api/products/get-product/${id}`,
-          { withCredentials: true }
+        const res = await API.get(
+          `/products/get-product/${id}`
         );
 
         const product = res.data.product;
@@ -54,12 +53,9 @@ export const EditProducts = () => {
         data.append("image", image);
       }
 
-      await axios.put(
-        `https://nextcart-backend-kxc0.onrender.com/api/products/update/${id}`,
-        data,
-        {
-          withCredentials: true,
-        }
+      await API.put(
+        `/products/update/${id}`,
+        data
       );
 
       alert("Product updated successfully");

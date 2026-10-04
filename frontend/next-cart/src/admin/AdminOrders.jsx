@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { API } from "../api";
 
 export const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -7,11 +7,8 @@ export const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(
-        "https://nextcart-backend-kxc0.onrender.com/api/orders/all",
-        {
-          withCredentials: true,
-        }
+      const res = await API.get(
+        "/orders/all"
       );
 
       setOrders(res.data.orders);
@@ -25,12 +22,9 @@ export const AdminOrders = () => {
 
   const updateStatus = async (orderId, status) => {
     try {
-      await axios.put(
-        `https://nextcart-backend-kxc0.onrender.com/api/orders/update-status/${orderId}`,
-        { status },
-        {
-          withCredentials: true,
-        }
+      await API.put(
+        `/orders/update-status/${orderId}`,
+        { status }
       );
 
       setOrders((prevOrders) =>

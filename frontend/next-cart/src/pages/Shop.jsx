@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { API } from "../api";
 import { useLocation } from "react-router-dom";
 import { ProductCard } from "../component/ProductCard";
 import  ShopHero  from "../component/SHOP/ShopHero";
@@ -54,11 +54,8 @@ export const Shop = () => {
     const fetchWishlist = async () => {
   try {
 
-    const res = await axios.get(
-      "https://nextcart-backend-kxc0.onrender.com/api/auth/wishlist",
-      {
-        withCredentials: true,
-      }
+    const res = await API.get(
+      "/auth/wishlist"
     );
 
     setWishlist(
@@ -78,8 +75,8 @@ export const Shop = () => {
     try {
       setLoading(true);
 
-      const res = await axios.get(
-        "https://nextcart-backend-kxc0.onrender.com/api/products/get-products",
+      const res = await API.get(
+        "/products/get-products",
         {
           params: {
   search,

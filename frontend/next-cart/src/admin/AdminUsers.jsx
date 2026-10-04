@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { API } from "../api";
 
 export const AdminUsers = () => {
 
@@ -10,11 +10,8 @@ export const AdminUsers = () => {
 
     try {
 
-      const res = await axios.get(
-        "https://nextcart-backend-kxc0.onrender.com/api/auth/users",
-        {
-          withCredentials: true,
-        }
+      const res = await API.get(
+        "/auth/users"
       );
 
       setUsers(res.data.users);

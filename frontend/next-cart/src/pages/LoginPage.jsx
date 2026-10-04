@@ -1,6 +1,6 @@
 import { useState , useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { API } from "../api";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
@@ -18,15 +18,10 @@ export const Login = () => {
     try {
       setLoading(true);
 
-      const res = await axios.post(
-        "https://nextcart-backend-kxc0.onrender.com/api/auth/login",
-        {
+      const res = await API.post( "/auth/login", {
           email,
           password,
         },
-        {
-          withCredentials: true,
-        }
       );
 
       toast.success( res.data.message || "Login Successful");

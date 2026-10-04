@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { API } from "../api";
 import { Link } from "react-router-dom";
 
 export const AdminProducts = () => {
@@ -8,11 +8,8 @@ export const AdminProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(
-        "https://nextcart-backend-kxc0.onrender.com/api/products/get-products",
-        {
-          withCredentials: true,
-        }
+      const response = await API.get(
+        "/products/get-products",
       );
 
       setProducts(response.data.products);
@@ -32,11 +29,8 @@ export const AdminProducts = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(
-        `https://nextcart-backend-kxc0.onrender.com/api/products/delete/${id}`,
-        {
-          withCredentials: true,
-        }
+      await API.delete(
+        `/products/delete/${id}`
       );
 
       setProducts((prev) =>

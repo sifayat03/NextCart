@@ -13,7 +13,7 @@ const dummyProducts = [
     _id: 1,
     name: "Apple AirPods Pro",
     category: "Electronics",
-    image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800",
+    image: "https://cdn.vox-cdn.com/uploads/chorus_asset/file/24043027/DSCF9466.jpg",
     price: 19999,
     oldPrice: 24999,
     bestSeller: true,

@@ -79,7 +79,7 @@
 }*/
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { API } from "../api";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -95,11 +95,8 @@ export const AdminDashboard = () => {
 
       try {
 
-        const res = await axios.get(
-          "https://nextcart-backend-kxc0.onrender.com/api/admin/dashboard",
-          {
-            withCredentials: true,
-          }
+        const res = await API.get(
+          "/admin/dashboard"
         );
 
         setStats(res.data);

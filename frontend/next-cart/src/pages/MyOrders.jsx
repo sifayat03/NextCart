@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import {API} from "../api";
 import { toast } from "react-toastify";
 import {
   PackageCheck,
@@ -15,8 +15,8 @@ export const MyOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(
-        "https://nextcart-backend-kxc0.onrender.com/api/orders/my-orders",
+      const res = await API.get(
+        "/orders/my-orders",
         {
           withCredentials: true,
         }

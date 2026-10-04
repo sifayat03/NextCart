@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import {API} from "../api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -60,11 +60,8 @@ export const Checkout = () => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get(
-        "https://nextcart-backend-kxc0.onrender.com/api/cart",
-        {
-          withCredentials: true,
-        }
+      const res = await API.get(
+        "/cart"
       );
 
       setCart(res.data.items || []);
@@ -116,8 +113,8 @@ export const Checkout = () => {
           qty: item.quantity,
         }));
 
-    const res = await axios.post(
-      "https://nextcart-backend-kxc0.onrender.com/api/orders/create",
+    const res = await API.post(
+      "/orders/create",
       {
         items: orderItems,
         address,
@@ -169,8 +166,8 @@ export const Checkout = () => {
       if (!validateAddress()) return;
       setLoading(true);
 
-      const { data } = await axios.post(
-        "https://nextcart-backend-kxc0.onrender.com/api/payment/create-order",
+      const { data } = await API.post(
+        "/payment/create-order",
         {
           amount: totalAmount,
         },
@@ -199,8 +196,8 @@ export const Checkout = () => {
         ) {
           try {
             const verifyRes =
-              await axios.post(
-                "https://nextcart-backend-kxc0.onrender.com/api/payment/verify",
+              await API.post(
+                "/payment/verify",
                 response,
                 {
                   withCredentials: true,

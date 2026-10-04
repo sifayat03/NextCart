@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 
-import axios from "axios";
+import {API} from "../api";
 
 const WishlistContext = createContext();
 
@@ -24,11 +24,8 @@ export const WishlistProvider = ({ children }) => {
 
   const fetchWishlist = async () => {
     try {
-      const res = await axios.get(
-        "https://nextcart-backend-kxc0.onrender.com/api/auth/wishlist",
-        {
-          withCredentials: true,
-        }
+      const res = await API.get(
+        "/auth/wishlist"
       );
 
       setWishlistProducts(
@@ -81,8 +78,8 @@ export const WishlistProvider = ({ children }) => {
     }
 
     try {
-      await axios.post(
-        `https://nextcart-backend-kxc0.onrender.com/api/auth/wishlist/${product._id}`,
+      await API.post(
+        `/auth/wishlist/${product._id}`,
         {},
         {
           withCredentials: true,

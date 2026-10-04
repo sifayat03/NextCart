@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import { API } from "../api";
 import { AuthContext } from "../context/AuthContext";
 import "../style/auth.css"
 
@@ -16,15 +16,12 @@ export const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "https://nextcart-backend-kxc0.onrender.com/api/auth/register",
+      const res = await API.post(
+        "/auth/register",
         {
           name,
           email,
           password,
-        },
-        {
-          withCredentials: true,
         }
       );
 

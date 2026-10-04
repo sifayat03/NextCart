@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import { API } from '../api';
 
 export const AddProducts = () => {
 
@@ -34,15 +34,9 @@ export const AddProducts = () => {
 
 
    try {
-    const response = await axios.post(
-      "https://nextcart-backend-kxc0.onrender.com/api/products/create",
-      data,
-      {
-        withCredentials: true,
-      /*  headers: {
-          "Content-Type": "multipart/form-data",
-        },*/
-      }
+    const response = await API.post(
+      "/products/create",
+      data
     );
 
     alert("Product added successfully!");

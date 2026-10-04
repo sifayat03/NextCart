@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { API } from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ShoppingBag,
@@ -20,11 +20,8 @@ export const Cart = () => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get(
-        "https://nextcart-backend-kxc0.onrender.com/api/cart",
-        {
-          withCredentials: true,
-        }
+      const res = await API.get(
+        "/cart"
       );
 
       setCart(res.data.items || []);
@@ -38,11 +35,8 @@ export const Cart = () => {
 
   const removeItem = async (productId) => {
     try {
-      await axios.delete(
-        `https://nextcart-backend-kxc0.onrender.com/api/cart/${productId}`,
-        {
-          withCredentials: true,
-        }
+      await API.delete(
+        `/cart/${productId}`
       );
 
       setCart((prev) =>
@@ -66,13 +60,11 @@ export const Cart = () => {
     try {
       setUpdatingId(productId);
 
-      const res = await axios.put(
-        `https://nextcart-backend-kxc0.onrender.com/api/cart/${productId}`,
-        { quantity: newQty },
-        {
-          withCredentials: true,
-        }
+      const res = await API.put(
+        `/cart/${productId}`,
+        { quantity: newQty }
       );
+      ;
 
       setCart(res.data.items || []);
     } catch (error) {

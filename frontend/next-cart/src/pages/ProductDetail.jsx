@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import {API} from "../api";
 import { ProductGallery } from "../component/Products/ProductGallery";
 import { ProductInfo } from "../component/Products/ProductInfo";
 import { QuantitySelector } from "../component/Products/QuantitySelector";
@@ -41,12 +41,9 @@ const isWishlisted =
 
   const fetchProduct = async () => {
     try {
-     const res = await axios.get(
-      `https://nextcart-backend-kxc0.onrender.com/api/products/get-product/${id}`,
-  {
-    withCredentials: true,
-  }
-);
+     const res = await API.get(
+      `/products/get-product/${id}`
+    );
 
 setProduct(res.data.product);
 console.log(res.data)
@@ -69,14 +66,11 @@ setInitialWishlist(res.data.isWishlisted || false);
 
   try {
 
-    const res = await axios.post(
-      `https://nextcart-backend-kxc0.onrender.com/api/products/${id}/review`,
+    const res = await API.post(
+      `/products/${id}/review`,
       {
         rating,
         comment,
-      },
-      {
-        withCredentials: true,
       }
     );
 
@@ -101,14 +95,11 @@ setInitialWishlist(res.data.isWishlisted || false);
     try {
       setAddingToCart(true);
 
-      const res = await axios.post(
-        "https://nextcart-backend-kxc0.onrender.com/api/cart/add",
+      const res = await API.post(
+        "/cart/add",
         {
           productId: product._id,
           quantity: qty,
-        },
-        {
-          withCredentials: true,
         }
       );
 
